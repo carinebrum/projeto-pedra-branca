@@ -1,0 +1,36 @@
+﻿ID_Ponto;ID_Trilhas;UTM;Tipo;Declividade;Solo;Condicoes_da_Trilha;Sinais_de_Erosao;Obstaculos_e_Riscos;Nivel_de_Perigo;Escala_de_Perigo
+T1P001;T01;23K 659621 7463106;Drenagem;Muito Baixa;Misto (Arenoso/argiloso);Largura pouco mens de 1 metro com degraus naturais de raízes e rochas expostas no chão;Desgaste do solo por fluxo de pessoas e de água;;Baixo;2
+T1P002;T01;23K 659517 7462993;Erosão;Muito Baixa;Arenoso;Largura de cerca de 1 metro, observa-se um deslizamento de massa com uma profundidade de 2 metros e de 2 metros de largura com troncos e galhos caídos, assim como alguns blocos no chão;Deslizamento do lado direito da trilha;Troncos caidos;Médio;3
+T1P003;T01;23K 659454 7462975;Drenagem;Baixa;Arenoso;Largura de aproximadamente 8 metros e presença de um desnível em direção ao poço das crianças logo ao lado;Solo apresenta muito desnível devido a erosão laminar presente;Risco de queda;Baixo;2
+T1P004;T01;23K 659403 7462956;Declive;Muito Baixa;Arenoso;1.20 metros de largura com uma área de declive na direita da trilha com aproximadamente 4.4 metros de largura com uma declividade em torno de 50°;Solo pouco compactado e escorregadio do lado direito da  trilha;Risco de queda;Baixo;2
+T1P005;T01;23K 659262 7462943;Drenagem;Baixa;Arenoso;Rio com cerca de 10 metros de uma margem até a outra com apenas um tronco caido usado como ponte para a travessia;   ;Rio ;Alto;4
+T1P006;T01;23K 659133 7462935;Passagem;Baixa;Misto (Arenoso/argiloso);Aproximadamente 80cm de largura, com evidencias de pisoteio de pedrstres e escoamento de água;Erosão Laminar;;Baixo;2
+T1P007;T01;23K 659082 7462946;Erosão;Baixa;Arenoso;Aproximadamente 1.5 metros com presença de raízes no chão;Erosão em sulco;;Baixo;2
+T1P008;T01;23K 658806 7462979;Erosão;Média;Arenoso mal selecionado;De 2 a 3 metros, solo escorregadio com raízes no piso irregular;Erosão em sulco;Risco de escorregamento;Médio;3
+T1P009;T01;23K 658769 7462974;Erosão;Média;Arenoso pouco compacto;Aproximadamente 3 metros com muitos galhos, raízes e blocos soltos no piso irregular ;Erosão em sulco;Risco de escorregamento;Médio;3
+T1P010;T01;23K 658722 7462913;Declive;Muito Alta;Argiloso saturado;1.4 metros de largura com 5.5 metros de extensão;Erosão Laminar;Risco de escorregamento;Muito Alto;5
+T1P011;T01;23K 658688 7462943;Erosão;Baixa;Argiloso saturado;Aproximadamente 1 metro de largura com alguns galhos soltos caidos na trilha e piso irregular;Erosão em sulco;;Baixo;2
+T1P012;T01;23K 658507 7462796;Passagem;Baixa;Argiloso saturado;Aproximadamente 1.3 metros de largura com blocos soltos no piso irregular e escorregadio;;;Muito Baixo;1
+T1P013;T01;23K 658259 7462800;Declive;Baixa;Argiloso;60 cm de largura com raízes no solo, do lado esquerdo apresenta uma área de declive com galhos e troncos soltos caidos;;Risco de queda;Alto;4
+T1P014;T01;23K 658146 7462754;Drenagem;Baixa;Misto (Arenoso/argiloso);Esse trecho é necessário atravessar um percurso de água onde se encontra muitos blocos soltos e escorregadios;Margem do rio sofre erosão, principalmente laminar;Rio ;Alto;4
+T1P015;T01;23K 658147 7462674;Passagem;Baixa;Arenoso;Erosão criou uma trilha alternativa do lado do percurso original;;;Baixo;2
+T1P016;T01;23K 657984 7462648;Obstaculo;Baixa;Misto (Arenoso/argiloso);em torno de 1 metro de largura ;;Tronco caido no meio da trilha;Médio;3
+T1P017;T01;23K 657724 7462583;Erosão;Baixa;Argiloso saturado;Aproximadamente 1.1 metro de largura e 60 cm de profundidade com raízes expostas;;;Baixo;2
+T1P018;T01;23K 657664 7462493;Obstaculo;Média;Arenoso;Trilha estreita em mata fechada;;Troncos e cipós caidos na trilha;Alto;4
+T1P019;T01;23K 657527 7462438;Erosão;Alta;Arenoso;Solo escorregadio em área com alta declividade com raízes e troncos expostos no solo;Erosão Laminar;Solo escorregadio;Médio;3
+T1P020;T01;23K 657491 7462342;Declive;Média;Misto (Arenoso/argiloso);Trilha estreita em mata fechada com uma área de declive do lado esquerdo;;;Médio;3
+T1P021;T01;23K 657330 7462331;Declive;Baixa;Arenoso;A trilha apresenta em área de declive do lado direito podendo causar queda encosta abaixo e uma área de deslizamento da encosta acima para a trilha na parte mais baixa pelo lado esquerdo;;Risco de queda;Alto;4
+T1P022;T01;23K 657131 7462397;Declive;Média;Arenoso;aproximadamente 1.5 metros de largura com área de declive do lado esquerdo. Mais pra frente a trilha se divide em dois caminhos diferentes;;Solo escorregadio, risco de queda;Alto;4
+T1P023;T01;23K 657078 7462436;Passagem;Baixa;Argiloso;cerca de 1 metro de largura com argila saturada com alta compactação;;;Baixo;2
+T1P024;T01;23K 656981 7462480;Declive;Alta;Arenoso (areia fina);aproximadamente 80cm de largura com área de declive na esquerda;Solo não compactado na borda da trilha ;Risco de queda na área de declive;Muito Alto;5
+T1P025;T01;23K 656864 7462487;Declive;Média;Arenoso (areia fina);Área de declive na direita da trilha;Foi formado um caminho alternativo do lado direito da trilha devido a erosão em estágios mais avançados ;Área de declive do lado esquerdo;Médio;3
+T1P026;T01;23K 656825 7462613;Deslizamento;Baixa;Misto (Arenoso/argiloso);Trilha estreita com aproximadamente 1 metro de largura com área de declive do lado esquerdo;;Solo escorregadio em área de declive;Alto;4
+T1P027;T01;23K 656813 7462776;Declive;Baixa;Arenoso;Trilha muito estreita com área de declive do lado esquerdo e solo escorregadio sujeito a escorregamento e queda;Rochas e raízes expostas no solo;Risco de queda;Alto;4
+T1P028;T01;23K 656678 7462800;Drenagem;Baixa;Arenoso;apresenta um percurso de água atravessando a trilha ;Solo removido devido ao fluxo de água;;Alto;4
+T1P029;T01;23K 656365 7462773;Drenagem;Baixa;Misto (Arenoso/argiloso);esse trecho se encontra com um acumulo de água, solo escorregadio;Erosão laminar e em sulco;Risco de escorregamento no solo molhado;Médio;3
+T1P030;T01;23K 656306 7462740;Drenagem;Baixa;Misto (Arenoso/argiloso);Esse trecho apresenta um acumulo de água, solo escorregadio e saturado;Blocos expostos no solo erodido pela água;Risco de escorregamento no solo molhado;Médio;3
+T1P031;T01;23K 655888 7462833;Passagem;Média;Arenoso;Aproximadamente 2 metros de largura com muitos galhos caidos no piso irregular;Erosão laminar com erosão em sulco em estágio inicial;;Baixo;2
+T1P032;T01;23K 655778 7462931;Obstaculo;Média;Arenoso;Muitos galhos caidos no piso irregular, solo escorregadio;Erosão laminar;um tronco grande caido no meio da trilha ;Médio;3
+T1P033;T01;23K 656069 7463018;Declive;Muito Alta;Arenoso;Trecho com alta declividade e solo escorregadio tornando  a travessia perigosa e dificil, muitos galhos e folhagem caidos;Erosão laminar e em sulco;Alta declividade no solo escorregadio;Muito Alto;5
+T1P034;T01;23K 656242 7463099;Obstaculo;Baixa;Arenoso;Aproximadamente 1.6 metros de largura com piso irregular;;Tronco grande caido no meio da trilha;Médio;3
+T1P035;T01;23K 656586 7463215;Pico Pedra Branca;Média;Arenoso;Pico da pedra branca, a visão da cidade é impossibilitda pela grande quantidade de arvores ;;;Muito Baixo;1

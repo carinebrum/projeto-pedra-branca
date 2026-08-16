@@ -1,0 +1,418 @@
+CREATE EXTENSION postgis;
+--------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.area_parque (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(200),
+    municipio VARCHAR(100),
+    area_ha DOUBLE PRECISION,
+    geom GEOMETRY(POLYGON, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.trilha_1_pau_da_fome (
+    id_trilha VARCHAR(20),
+    nome_trilha VARCHAR(200),
+    geom GEOMETRY(LINESTRING, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.trilha_2_pedra_negra (
+    id_trilha VARCHAR(20),
+    nome_trilha VARCHAR(200),
+    geom GEOMETRY(LINESTRING, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.trilha_3_morro_dos_caboclos (
+    id_trilha VARCHAR(20),
+    nome_trilha VARCHAR(200),
+    geom GEOMETRY(LINESTRING, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_1 (
+    id_ponto VARCHAR(50) PRIMARY KEY,
+    id_trilha VARCHAR(20),
+    utm TEXT,
+    tipo VARCHAR(100),
+    declividade DOUBLE PRECISION,
+    solo VARCHAR(100),
+    condicoes_trilha VARCHAR(200),
+    sinais_erosao TEXT,
+    obstaculos_riscos TEXT,
+    nivel_perigo VARCHAR(50),
+    escala_perigo INTEGER,
+    geom GEOMETRY(POINT, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_2 (
+    id_ponto VARCHAR(50) PRIMARY KEY,
+    id_trilha VARCHAR(20),
+    utm TEXT,
+    tipo VARCHAR(100),
+    declividade DOUBLE PRECISION,
+    solo VARCHAR(100),
+    condicoes_trilha VARCHAR(200),
+    sinais_erosao TEXT,
+    obstaculos_riscos TEXT,
+    nivel_perigo VARCHAR(50),
+    escala_perigo INTEGER,
+    geom GEOMETRY(POINT, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_3 (
+    id_ponto VARCHAR(50) PRIMARY KEY,
+    id_trilha VARCHAR(20),
+    utm TEXT,
+    tipo VARCHAR(100),
+    declividade DOUBLE PRECISION,
+    solo VARCHAR(100),
+    condicoes_trilha VARCHAR(200),
+    sinais_erosao TEXT,
+    obstaculos_riscos TEXT,
+    nivel_perigo VARCHAR(50),
+    escala_perigo INTEGER,
+    geom GEOMETRY(POINT, 31983)
+);
+
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_1 (
+    id_foto VARCHAR(50) PRIMARY KEY,
+    id_ponto VARCHAR(50),
+    arquivo VARCHAR(300),
+    caminho TEXT
+);
+
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_2 (
+    id_foto VARCHAR(50) PRIMARY KEY,
+    id_ponto VARCHAR(50),
+    arquivo VARCHAR(300),
+    caminho TEXT
+);
+
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_3 (
+    id_foto VARCHAR(50) PRIMARY KEY,
+    id_ponto VARCHAR(50),
+    arquivo VARCHAR(300),
+    caminho TEXT
+);
+
+---------------------------------------------------------------------------
+
+
+
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_1_stg (
+    id_ponto VARCHAR(50),
+    id_trilha VARCHAR(20),
+    utm TEXT,
+    tipo VARCHAR(100),
+    declividade DOUBLE PRECISION,
+    solo VARCHAR(100),
+    condicoes_trilha VARCHAR(200),
+    sinais_erosao TEXT,
+    obstaculos_riscos TEXT,
+    nivel_perigo VARCHAR(50),
+    escala_perigo INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_2_stg (LIKE public.pontos_trilha_1_stg);
+CREATE TABLE IF NOT EXISTS public.pontos_trilha_3_stg (LIKE public.pontos_trilha_1_stg);
+
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_1_stg (
+    id_foto VARCHAR(50),
+    id_ponto VARCHAR(50),
+    arquivo VARCHAR(300),
+    caminho TEXT
+);
+
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_2_stg (LIKE public.fotos_trilha_1_stg);
+CREATE TABLE IF NOT EXISTS public.fotos_trilha_3_stg (LIKE public.fotos_trilha_1_stg);
+
+SELECT COUNT(*) FROM public.pontos_trilha_1_stg;
+SELECT COUNT(*) FROM public.pontos_trilha_2_stg;
+SELECT COUNT(*) FROM public.pontos_trilha_3_stg;
+
+---------------------------------------------------------------------------------------------
+
+ALTER TABLE public.trilha_1_pau_da_fome DROP COLUMN id;
+
+ALTER TABLE public.trilha_1_pau_da_fome DROP COLUMN nome;
+
+ALTER TABLE public.trilha_1_pau_da_fome DROP COLUMN trilha;
+
+ALTER TABLE public.trilha_1_pau_da_fome ADD COLUMN nome_trilha VARCHAR(100);
+
+ALTER TABLE public.trilha_1_pau_da_fome
+ALTER COLUMN id_trilha TYPE TEXT;
+
+ALTER TABLE public.trilha_1_pau_da_fome
+ALTER COLUMN nome_trilha TYPE TEXT;
+
+UPDATE public.trilha_1_pau_da_fome
+SET nome_trilha = 'Pau da Fome'
+WHERE id_trilha = '1';
+
+UPDATE public.trilha_1_pau_da_fome
+SET id_trilha = 'T01'
+WHERE id_trilha = '1';
+
+SELECT * FROM trilha_1_pau_da_fome;
+
+---------------------------------------------------------------------
+
+ALTER TABLE public.trilha_2_pedra_negra DROP COLUMN id;
+
+ALTER TABLE public.trilha_2_pedra_negra DROP COLUMN nome;
+
+ALTER TABLE public.trilha_2_pedra_negra DROP COLUMN trilha;
+
+ALTER TABLE public.trilha_2_pedra_negra ADD COLUMN nome_trilha TEXT;
+
+ALTER TABLE public.trilha_2_pedra_negra
+ALTER COLUMN id_trilha TYPE TEXT;
+
+UPDATE public.trilha_2_pedra_negra
+SET nome_trilha = 'Pedra Negra'
+WHERE id_trilha = '1';
+
+UPDATE public.trilha_2_pedra_negra
+SET id_trilha = 'T02'
+WHERE id_trilha = '1';
+
+SELECT * FROM trilha_2_pedra_negra;
+
+------------------------------------------------------------------------
+
+ALTER TABLE public.trilha_3_morro_dos_caboclos DROP COLUMN id;
+
+ALTER TABLE public.trilha_3_morro_dos_caboclos DROP COLUMN nome;
+
+ALTER TABLE public.trilha_3_morro_dos_caboclos DROP COLUMN trilha;
+
+ALTER TABLE public.trilha_3_morro_dos_caboclos ADD COLUMN nome_trilha TEXT;
+
+ALTER TABLE public.trilha_3_morro_dos_caboclos
+ALTER COLUMN id_trilha TYPE TEXT;
+
+UPDATE public.trilha_3_morro_dos_caboclos
+SET nome_trilha = 'Morro dos Caboclos'
+WHERE id_trilha = '1';
+
+UPDATE public.trilha_3_morro_dos_caboclos
+SET id_trilha = 'T03'
+WHERE id_trilha = '1';
+
+SELECT * FROM trilha_3_morro_dos_caboclos;
+
+----------------------------------------------------------------------------
+
+ALTER TABLE public.pontos_trilha_1
+DROP CONSTRAINT pontos_trilha_1_pkey;
+
+ALTER TABLE public.pontos_trilha_1
+ALTER COLUMN id TYPE text;
+
+ALTER TABLE public.pontos_trilha_1
+ADD PRIMARY KEY (id);
+
+ALTER TABLE public.pontos_trilha_1
+DROP COLUMN id_ponto;
+
+ALTER TABLE public.pontos_trilha_1
+RENAME COLUMN id TO id_ponto;
+
+ALTER TABLE public.pontos_trilha_1
+ALTER COLUMN tipo TYPE text;
+
+ALTER TABLE public.pontos_trilha_1
+DROP COLUMN perigo;
+
+ALTER TABLE public.pontos_trilha_1
+ADD COLUMN id_trilha text,
+ADD COLUMN utm text,
+ADD COLUMN declividade double precision,
+ADD COLUMN solo text,
+ADD COLUMN condicoes_trilha text,
+ADD COLUMN sinais_erosao text,
+ADD COLUMN obstaculos_riscos text,
+ADD COLUMN nivel_perigo text,
+ADD COLUMN escala_perigo integer;
+
+SELECT * FROM pontos_trilha_1;
+
+------------
+
+ALTER TABLE public.pontos_trilha_2
+DROP CONSTRAINT pontos_trilha_2_pkey;
+
+ALTER TABLE public.pontos_trilha_2
+ALTER COLUMN id TYPE text;
+
+ALTER TABLE public.pontos_trilha_2
+ADD PRIMARY KEY (id);
+
+ALTER TABLE public.pontos_trilha_2
+DROP COLUMN id_ponto;
+
+ALTER TABLE public.pontos_trilha_2
+RENAME COLUMN id TO id_ponto;
+
+ALTER TABLE public.pontos_trilha_2
+ALTER COLUMN tipo TYPE text;
+
+ALTER TABLE public.pontos_trilha_2
+DROP COLUMN perigo;
+
+ALTER TABLE public.pontos_trilha_2
+ADD COLUMN id_trilha text,
+ADD COLUMN utm text,
+ADD COLUMN declividade double precision,
+ADD COLUMN solo text,
+ADD COLUMN condicoes_trilha text,
+ADD COLUMN sinais_erosao text,
+ADD COLUMN obstaculos_riscos text,
+ADD COLUMN nivel_perigo text,
+ADD COLUMN escala_perigo integer;
+
+SELECT * FROM pontos_trilha_2;
+
+-----------
+
+ALTER TABLE public.pontos_trilha_3
+DROP CONSTRAINT pontos_trilha_3_pkey;
+
+ALTER TABLE public.pontos_trilha_3
+ALTER COLUMN id TYPE text;
+
+ALTER TABLE public.pontos_trilha_3
+ADD PRIMARY KEY (id);
+
+ALTER TABLE public.pontos_trilha_3
+DROP COLUMN id_ponto;
+
+ALTER TABLE public.pontos_trilha_3
+RENAME COLUMN id TO id_ponto;
+
+ALTER TABLE public.pontos_trilha_3
+ALTER COLUMN tipo TYPE text;
+
+ALTER TABLE public.pontos_trilha_3
+DROP COLUMN perigo;
+
+ALTER TABLE public.pontos_trilha_3
+ADD COLUMN id_trilha text,
+ADD COLUMN utm text,
+ADD COLUMN declividade double precision,
+ADD COLUMN solo text,
+ADD COLUMN condicoes_trilha text,
+ADD COLUMN sinais_erosao text,
+ADD COLUMN obstaculos_riscos text,
+ADD COLUMN nivel_perigo text,
+ADD COLUMN escala_perigo integer;
+
+SELECT * FROM pontos_trilha_3;
+
+-------------
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN id_trilhas TO id_trilha;
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN condicoes_da_trilha TO condicoes_trilha;
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN sinais_de_erosao TO sinais_erosao;
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN obstaculos_e_riscos TO obstaculos_riscos;
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN nivel_de_perigo TO nivel_perigo;
+
+ALTER TABLE public.pontos_trilha_1_stg
+RENAME COLUMN escala_de_perigo TO escala_perigo;
+
+--------------
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN id_trilhas TO id_trilha;
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN condicoes_da_trilha TO condicoes_trilha;
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN sinais_de_erosao TO sinais_erosao;
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN obstaculos_e_riscos TO obstaculos_riscos;
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN nivel_de_perigo TO nivel_perigo;
+
+ALTER TABLE public.pontos_trilha_2_stg
+RENAME COLUMN escala_de_perigo TO escala_perigo;
+
+---------------
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN id_trilhas TO id_trilha;
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN condicoes_da_trilha TO condicoes_trilha;
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN sinais_de_erosao TO sinais_erosao;
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN obstaculos_e_riscos TO obstaculos_riscos;
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN nivel_de_perigo TO nivel_perigo;
+
+ALTER TABLE public.pontos_trilha_3_stg
+RENAME COLUMN escala_de_perigo TO escala_perigo;
+
+----------------------------------------------------------------------------
+
+UPDATE pontos_trilha_1 AS g
+SET
+    id_trilha = s.id_trilha,
+    utm = s.utm,
+    tipo = s.tipo,
+    declividade = s.declividade,
+    solo = s.solo,
+    condicoes_trilha = s.condicoes_trilha,
+    sinais_erosao = s.sinais_erosao,
+    obstaculos_riscos = s.obstaculos_riscos,
+    nivel_perigo = s.nivel_perigo,
+    escala_perigo = NULLIF(TRIM(s.escala_perigo), '')::integer
+FROM pontos_trilha_1_stg AS s
+WHERE g.id_ponto = s.id_ponto;
+
+UPDATE pontos_trilha_2 AS g
+SET
+    id_trilha = s.id_trilha,
+    utm = s.utm,
+    tipo = s.tipo,
+    declividade = s.declividade,
+    solo = s.solo,
+    condicoes_trilha = s.condicoes_trilha,
+    sinais_erosao = s.sinais_erosao,
+    obstaculos_riscos = s.obstaculos_riscos,
+    nivel_perigo = s.nivel_perigo,
+    escala_perigo = NULLIF(TRIM(s.escala_perigo), '')::integer
+FROM pontos_trilha_2_stg AS s
+WHERE g.id_ponto = s.id_ponto;
+
+UPDATE pontos_trilha_3 AS g
+SET
+    id_trilha = s.id_trilha,
+    utm = s.utm,
+    tipo = s.tipo,
+    declividade = s.declividade,
+    solo = s.solo,
+    condicoes_trilha = s.condicoes_trilha,
+    sinais_erosao = s.sinais_erosao,
+    obstaculos_riscos = s.obstaculos_riscos,
+    nivel_perigo = s.nivel_perigo,
+    escala_perigo = NULLIF(TRIM(s.escala_perigo), '')::integer
+FROM pontos_trilha_3_stg AS s
+WHERE g.id_ponto = s.id_ponto;
+
+--------------------------------------------------------------------------------------------------------
