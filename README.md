@@ -29,9 +29,31 @@ O material de origem foi herdado do TCC de geologia ambiental e reorganizado em 
 
 ## Como abrir o projeto QGIS
 
-As camadas vêm de um banco PostgreSQL local — o banco é a fonte de verdade do projeto. Para o arquivo do QGIS abrir com os dados, é preciso restaurar o banco antes.
+O repositório oferece dois caminhos. O **banco PostgreSQL é a fonte de verdade** do projeto; o GeoPackage é uma cópia congelada dele, publicada para quem só quer abrir e ver.
 
-### 1. Restaurar o banco
+| | Opção A — GeoPackage | Opção B — PostGIS |
+|---|---|---|
+| Arquivo | `Projeto_QGIS_Pedra_Branca_GeoPackage.qgz` | `Projeto_QGIS_Pedra_Branca.qgz` |
+| Precisa instalar | nada além do QGIS | PostgreSQL + PostGIS |
+| Para que serve | visualizar, conferir, apresentar | trabalhar nos dados, editar, consultar |
+
+---
+
+### Opção A — só visualizar (não precisa instalar nada)
+
+Abra `Projeto_QGIS_Pedra_Branca_GeoPackage.qgz`, na raiz do repositório.
+
+Os dados vêm de `03_QGIS/pedra_branca.gpkg` — arquivo único, já incluído no repositório, com as 10 camadas e a simbologia embutidas. Não é preciso configurar conexão nenhuma.
+
+> O `.gpkg` é uma **fotografia** do banco no momento da exportação. Se o banco for corrigido depois, esta cópia não sabe disso. Em caso de divergência, vale o que está no PostgreSQL.
+
+---
+
+### Opção B — trabalhar com o banco (fonte de verdade)
+
+As camadas vêm de um banco PostgreSQL local. Para o arquivo do QGIS abrir com os dados, é preciso restaurar o banco antes.
+
+#### 1. Restaurar o banco
 
 Requisitos: **PostgreSQL 14+** com a extensão **PostGIS**.
 
@@ -53,7 +75,7 @@ Restaure o dump:
 pg_restore -U postgres -d projetopedrabranca 02_Banco_de_Dados/projetopedrabranca.dump
 ```
 
-### 2. Criar a conexão no QGIS
+#### 2. Criar a conexão no QGIS
 
 Em **Camada → Adicionar Camada → Adicionar Camada PostGIS → Nova conexão**:
 
@@ -66,11 +88,15 @@ Em **Camada → Adicionar Camada → Adicionar Camada PostGIS → Nova conexão*
 
 > O **nome da conexão precisa ser idêntico**. Se for diferente, o QGIS pede o caminho de cada camada ao abrir o projeto.
 
-### 3. Abrir
+#### 3. Abrir
 
 Abra `Projeto_QGIS_Pedra_Branca.qgz`, na raiz do repositório.
 
-Ao passar o mouse sobre um ponto, aparece um balão com os atributos e a lista de fotografias. Ao clicar, o formulário mostra as fotos em miniatura, com botão para abrir o arquivo. para isso funcionar a camada tem que estar habilitada no QGis.
+---
+
+### Fotografias — vale para as duas opções
+
+Ao passar o mouse sobre um ponto, aparece um balão com os atributos e a lista de fotografias. Ao clicar, o formulário mostra as fotos em miniatura, com botão para abrir o arquivo. Para isso funcionar a camada tem que estar habilitada no QGIS.
 
 As imagens são lidas de `06_Fotos_Campo/` por **caminho relativo**, o que funciona em qualquer sistema operacional — desde que a estrutura de pastas do repositório seja mantida.
 
@@ -99,14 +125,15 @@ pip install pandas sqlalchemy psycopg2-binary python-dotenv matplotlib seaborn j
 ```text
 Projeto_Pedra_Branca/
 ├── 02_Banco_de_Dados      Scripts SQL e dump do banco
-├── 03_QGIS                Camadas vetoriais e layouts exportados
+├── 03_QGIS                Camadas, layouts e pedra_branca.gpkg
 ├── 04_Python              Scripts de automação e análise
 ├── 05_PowerBI             Dashboard
 ├── 06_Fotos_Campo         144 fotografias, organizadas por trilha
-└── Projeto_QGIS_Pedra_Branca.qgz
+├── Projeto_QGIS_Pedra_Branca.qgz              lê do PostGIS
+└── Projeto_QGIS_Pedra_Branca_GeoPackage.qgz   lê do .gpkg
 ```
 
-O arquivo de projeto do QGIS fica na **raiz**, para que os caminhos relativos das fotografias partam da mesma pasta que engloba todas as demais.
+Os dois arquivos de projeto do QGIS ficam na **raiz**, para que os caminhos relativos das fotografias partam da mesma pasta que engloba todas as demais.
 
 ## Modelo de dados
 
