@@ -1,0 +1,8 @@
+﻿solo,1,2,3,4,5
+Arenoso,3,11,10,9,6
+Arenoso (areia fina),0,0,1,0,1
+Arenoso mal selecionado,0,0,1,0,0
+Arenoso pouco compacto,0,0,1,0,0
+Argiloso,0,2,3,1,0
+Argiloso saturado,1,2,0,0,1
+Misto (Arenoso/argiloso),1,5,6,3,2

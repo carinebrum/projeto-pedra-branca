@@ -1,7 +1,4 @@
 # Arquivos locais e secretos
-.env
-.env.*
-*.env
 *.key
 *.pem
 *.pgpass

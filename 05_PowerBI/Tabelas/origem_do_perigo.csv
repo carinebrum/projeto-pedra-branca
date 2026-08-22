@@ -1,0 +1,6 @@
+﻿origem,pontos,perigo_medio,criticos,pct_criticos
+Nenhum dos dois,21,2.05,1,4.8
+Só declividade alta,6,2.67,1,16.7
+Só obstáculos,30,3.23,11,36.7
+"Declividade alta
++ obstáculos",13,4.38,10,76.9

@@ -2,9 +2,18 @@
 
 Este repositório organiza o material de portfólio do projeto de análise geoespacial dos processos erosivos nas trilhas do Parque Estadual da Floresta da Pedra Branca (RJ), a partir do trabalho de conclusão de curso de Carine Brum de Oliveira Silva, defendido em 2025 pela UFRRJ.
 
+**70 pontos de campo · 144 fotografias · 3 trilhas · PostgreSQL/PostGIS · QGIS · Python · Power BI**
+
 ## Contexto
 
 O projeto tem como foco o monitoramento e a classificação de risco de erosão nas trilhas do Parque Estadual da Floresta da Pedra Branca, localizado na Região Metropolitana do Rio de Janeiro. A base original do estudo foi consolidada em levantamento de campo com identificação de 70 pontos distribuídos em três trilhas.
+
+| Trilha | Nome | Pontos | Fotos |
+|---|---|---|---|
+| `T01` | Pau da Fome | 35 | 57 |
+| `T02` | Pedra Negra | 15 | 35 |
+| `T03` | Morro dos Caboclos | 20 | 52 |
+| | **Total** | **70** | **144** |
 
 ## Origem dos dados
 
@@ -12,23 +21,110 @@ O material de origem foi herdado do TCC de geologia ambiental e reorganizado em 
 
 - Banco de dados geoespacial PostgreSQL + PostGIS;
 - Organização de camadas e layouts em QGIS;
-- Automação em Python para vinculação entre pontos e fotografias;
 - Análise estatística dos dados de campo;
 - Dashboard em Power BI;
 - Publicação em GitHub como repositório de projeto.
+
+---
+
+## Como abrir o projeto QGIS
+
+As camadas vêm de um banco PostgreSQL local — o banco é a fonte de verdade do projeto. Para o arquivo do QGIS abrir com os dados, é preciso restaurar o banco antes.
+
+### 1. Restaurar o banco
+
+Requisitos: **PostgreSQL 14+** com a extensão **PostGIS**.
+
+Crie o banco e habilite a extensão:
+
+```sql
+CREATE DATABASE projetopedrabranca;
+```
+
+Conectado ao banco recém-criado:
+
+```sql
+CREATE EXTENSION postgis;
+```
+
+Restaure o dump:
+
+```
+pg_restore -U postgres -d projetopedrabranca 02_Banco_de_Dados/projetopedrabranca.dump
+```
+
+### 2. Criar a conexão no QGIS
+
+Em **Camada → Adicionar Camada → Adicionar Camada PostGIS → Nova conexão**:
+
+| Campo | Valor |
+|---|---|
+| Nome | `projetopedrabranca` |
+| Host | `localhost` |
+| Porta | `5432` |
+| Banco de dados | `projetopedrabranca` |
+
+> O **nome da conexão precisa ser idêntico**. Se for diferente, o QGIS pede o caminho de cada camada ao abrir o projeto.
+
+### 3. Abrir
+
+Abra `Projeto_QGIS_Pedra_Branca.qgz`, na raiz do repositório.
+
+Ao passar o mouse sobre um ponto, aparece um balão com os atributos e a lista de fotografias. Ao clicar, o formulário mostra as fotos em miniatura, com botão para abrir o arquivo. para isso funcionar a camada tem que estar habilitada no QGis.
+
+As imagens são lidas de `06_Fotos_Campo/` por **caminho relativo**, o que funciona em qualquer sistema operacional — desde que a estrutura de pastas do repositório seja mantida.
+
+## Scripts Python
+
+Os scripts em `04_Python/` leem as credenciais do banco de um arquivo `.env` na raiz do projeto, que **não é versionado** por conter senha. Crie o seu:
+
+```
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=projetopedrabranca
+PGUSER=postgres
+PGPASSWORD=sua_senha
+```
+
+Dependências:
+
+```
+pip install pandas sqlalchemy psycopg2-binary python-dotenv matplotlib seaborn jupyter
+```
+
+---
 
 ## Estrutura do projeto
 
 ```text
 Projeto_Pedra_Branca/
-├── 00_Documentação
-├── 01_Dados_Brutos
-├── 02_Banco_de_Dados
-├── 03_QGIS
-├── 04_Python
-├── 05_PowerBI
-└── 06_Fotos_Campo
+├── 02_Banco_de_Dados      Scripts SQL e dump do banco
+├── 03_QGIS                Camadas vetoriais e layouts exportados
+├── 04_Python              Scripts de automação e análise
+├── 05_PowerBI             Dashboard
+├── 06_Fotos_Campo         144 fotografias, organizadas por trilha
+└── Projeto_QGIS_Pedra_Branca.qgz
 ```
+
+O arquivo de projeto do QGIS fica na **raiz**, para que os caminhos relativos das fotografias partam da mesma pasta que engloba todas as demais.
+
+## Modelo de dados
+
+```
+projetopedrabranca
+├── area_parque                    limite da unidade de conservação (POLYGON)
+├── trilha_1_pau_da_fome           (LINESTRING)
+├── trilha_2_pedra_negra           (LINESTRING)
+├── trilha_3_morro_dos_caboclos    (LINESTRING)
+├── pontos_trilha_1                35 registros (POINT)
+├── pontos_trilha_2                15 registros (POINT)
+├── pontos_trilha_3                20 registros (POINT)
+├── fotos_trilha_1_stg             57 registros, 1:N com pontos_trilha_1
+├── fotos_trilha_2_stg             35 registros, 1:N com pontos_trilha_2
+└── fotos_trilha_3_stg             52 registros, 1:N com pontos_trilha_3
+```
+
+As fotografias ligam-se aos pontos pelo campo `id_ponto`, dentro de cada trilha. As views `v_pontos_trilha_1/2/3` entregam ponto e fotos numa consulta só, para uso em análise e no dashboard.
 
 ## Stack principal
 
@@ -42,8 +138,9 @@ Projeto_Pedra_Branca/
 
 - Sistema de referência: SIRGAS 2000 / UTM zona 23S (EPSG:31983);
 - Nomenclatura de pontos: T1P001 a T3P020;
-- Identificação de fotos: padrão P<NNN>_F<NNN>.png;
-- Escala de perigo: 1 a 5.
+- Identificação de fotos: padrão `P<NNN>_F<NNN>.png`, onde `P` é o número do ponto dentro da trilha e `F` o identificador global da foto;
+- Caminho das fotos no banco: relativo à raiz do projeto, com barra normal (`06_Fotos_Campo/Trilha_01/P001_F001.png`);
+- Escala de perigo: 1 a 5, de Muito Baixo a Muito Alto.
 
 ## Objetivo
 

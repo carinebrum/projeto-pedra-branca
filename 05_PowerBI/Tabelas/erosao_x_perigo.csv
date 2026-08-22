@@ -1,0 +1,10 @@
+﻿classe_erosao,1,2,3,4,5
+Sem erosão observada,5,9,6,7,6
+Solo não compactado,0,1,0,0,1
+Exposição de rochas e raízes,0,0,1,1,0
+Remoção pelo fluxo de água,0,1,0,1,0
+Processo não especificado,0,0,2,0,0
+Laminar,0,4,2,2,2
+Laminar e sulco,0,3,2,0,1
+Sulco,0,2,8,2,0
+Deslizamento,0,0,1,0,0
