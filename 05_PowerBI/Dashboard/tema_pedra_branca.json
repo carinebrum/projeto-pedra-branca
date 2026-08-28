@@ -1,0 +1,11 @@
+{
+  "name": "Pedra Branca",
+  "dataColors": ["#d55181", "#4a3aa7", "#2a78d6", "#1a9641",
+                 "#f2c500", "#eb6834", "#c1272d", "#5a5f70"],
+  "background": "#f4f5f8",
+  "foreground": "#14141c",
+  "tableAccent": "#d55181",
+  "good": "#1a9641",
+  "neutral": "#5a5f70",
+  "bad": "#c1272d"
+}

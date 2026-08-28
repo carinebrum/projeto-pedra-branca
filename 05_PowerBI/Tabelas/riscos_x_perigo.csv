@@ -1,6 +1,6 @@
 ﻿risco,1,2,3,4,5
-Risco de escorregamento,0,3,7,4,7
-Área de declive ou deslizamento,0,4,3,3,7
-Risco de queda,0,2,3,5,3
-Tronco ou galho caído,0,2,6,1,2
-Curso d'água,0,0,0,2,0
+Piso escorregadio (solo sem coesão),0,3,7,4,7
+Declive instável ou deslizamento,0,4,3,3,7
+Risco de queda (trilha estreitada),0,2,3,5,3
+Árvore derrubada sobre a trilha,0,2,6,1,2
+Curso d'água cortando a trilha,0,0,0,2,0

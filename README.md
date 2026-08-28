@@ -72,7 +72,7 @@ CREATE EXTENSION postgis;
 Restaure o dump:
 
 ```
-pg_restore -U postgres -d projetopedrabranca 02_Banco_de_Dados/projetopedrabranca.dump
+pg_restore -U postgres -d projetopedrabranca 02_Banco_de_Dados/projetopedrabranca.dump.sql
 ```
 
 #### 2. Criar a conexão no QGIS
@@ -120,14 +120,65 @@ pip install pandas sqlalchemy psycopg2-binary python-dotenv matplotlib seaborn j
 
 ---
 
+## Análise em Python
+
+O notebook `04_Python/Notebook/analise_pedra_branca.ipynb` lê os 70 pontos direto do PostGIS e produz **8 figuras** e **18 tabelas** em `05_PowerBI/`.
+
+O trabalho central é transformar texto livre de campo em categorias comparáveis. Os campos `sinais_erosao` e `obstaculos_riscos` foram preenchidos em prosa — 22 descrições distintas de erosão, 43 de evidências de instabilidade. Regras de reconhecimento por padrão textual, ordenadas da mais específica para a mais genérica, convertem isso em classes, sem nenhuma classificação manual: cada categoria vem de uma regra explícita no código, que qualquer pessoa pode ler, contestar ou reexecutar.
+
+Todas as colunas derivadas **nascem no notebook** — não existem no banco. É por isso que o dashboard lê dos CSVs e não direto do PostgreSQL: a regra fica versionada num lugar só, em vez de duplicada em DAX.
+
+O produto principal é o `05_PowerBI/Tabelas/pontos_completo.csv`: 70 linhas × 35 colunas, reunindo os atributos de campo, as classificações derivadas e as coordenadas em graus decimais. As demais 17 tabelas são cruzamentos já somados, para conferência e para o relatório escrito.
+
+## Dashboard (Power BI)
+
+`05_PowerBI/Dashboard/Pedra_Branca.pbix` — quatro páginas, alimentadas por `pontos_completo.csv` e `fotos_completo.csv`.
+
+| Página | Pergunta que responde |
+|---|---|
+| **Visão geral** | Qual é o tamanho e o resultado do levantamento? |
+| **Mapa de perigo** | Onde estão os pontos críticos? |
+| **O que sustenta a nota de perigo** | Por que estes pontos são críticos? |
+| **Terreno e processos erosivos** | Em que condições a erosão se instala — e ela gradua o perigo? |
+
+A página de visão geral basta sozinha: quem abrir e não clicar em mais nada já sai sabendo o tamanho do levantamento e o achado principal. As outras três são profundidade.
+
+No mapa, o tamanho do marcador cresce com o nível de perigo, além da cor — dois canais para a mesma informação. Selecionar um ponto abre os atributos e a fotografia daquele trecho, servidas por URL a partir de `06_Fotos_Campo/`.
+
+A escala de perigo (azul → verde → amarelo → laranja → vermelho) é a mesma dos mapas do QGIS, para que carta e painel se leiam juntos.
+
+## Principais achados
+
+**Um terço da amostra é crítica.** 23 dos 70 pontos foram classificados em perigo 4 ou 5.
+
+**O perigo mora na combinação, não em cada fator isolado.**
+
+| Origem | Pontos | Perigo médio | % críticos |
+|---|---|---|---|
+| Declividade alta **+** instabilidade | 13 | 4,38 | **76,9%** |
+| Evidências de instabilidade | 30 | 3,23 | 36,7% |
+| Só declividade alta | 6 | 2,67 | 16,7% |
+| Sem evidência registrada | 21 | 2,05 | **4,8%** |
+
+Declividade alta sozinha quase não agrava; instabilidade do terreno pesa mais; juntas, três em cada quatro pontos viram críticos.
+
+**Trecho sem nenhum registro é trecho seguro.** Cruzando as duas colunas de texto livre, 11 pontos não têm registro em nenhuma delas — e **nenhum é crítico**, com perigo médio 1,64. Os 59 com algum registro têm média 3,31 e concentram os 23 críticos.
+
+**Árvore derrubada é efeito, não causa.** Separando os tipos de evidência, pontos com instabilidade do terreno registram 56,2% de críticos; pontos onde só há árvore caída, 16,7%. A queda é consequência do solapamento, e sozinha não indica trecho perigoso.
+
 ## Estrutura do projeto
 
 ```text
 Projeto_Pedra_Branca/
 ├── 02_Banco_de_Dados      Scripts SQL e dump do banco
 ├── 03_QGIS                Camadas, layouts e pedra_branca.gpkg
-├── 04_Python              Scripts de automação e análise
-├── 05_PowerBI             Dashboard
+├── 04_Python
+│   ├── Notebook           analise_pedra_branca.ipynb
+│   └── Scripts            vínculo automático das fotografias
+├── 05_PowerBI
+│   ├── Dashboard          Pedra_Branca.pbix e tema_pedra_branca.json
+│   ├── Imagens            8 figuras geradas pelo notebook
+│   └── Tabelas            18 tabelas geradas pelo notebook
 ├── 06_Fotos_Campo         144 fotografias, organizadas por trilha
 ├── Projeto_QGIS_Pedra_Branca.qgz              lê do PostGIS
 └── Projeto_QGIS_Pedra_Branca_GeoPackage.qgz   lê do .gpkg
@@ -167,7 +218,8 @@ As fotografias ligam-se aos pontos pelo campo `id_ponto`, dentro de cada trilha.
 - Nomenclatura de pontos: T1P001 a T3P020;
 - Identificação de fotos: padrão `P<NNN>_F<NNN>.png`, onde `P` é o número do ponto dentro da trilha e `F` o identificador global da foto;
 - Caminho das fotos no banco: relativo à raiz do projeto, com barra normal (`06_Fotos_Campo/Trilha_01/P001_F001.png`);
-- Escala de perigo: 1 a 5, de Muito Baixo a Muito Alto.
+- Escala de perigo: 1 a 5, de Muito Baixo a Muito Alto;
+- O `pontos_completo.csv` carrega `longitude` e `latitude` em **graus decimais (EPSG:4326)**, calculadas na consulta com `ST_Transform` apenas para o visual de mapa do Power BI, que não entende sistema projetado. A geometria do banco permanece em EPSG:31983.
 
 ## Objetivo
 
