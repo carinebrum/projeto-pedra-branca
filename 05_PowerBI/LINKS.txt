@@ -1,0 +1,10 @@
+Link que pode ser enviado por e-mail
+
+https://app.powerbi.com/view?r=eyJrIjoiMDlkMzk3ODItOGVlMi00OTVhLWI3MjMtYmRmMDVmMWZlYjAwIiwidCI6IjcwZGM2ZWM0LTc0YjEtNGMyNy04MWY5LWQwMmVlMmU1NzM5NiJ9
+
+
+
+
+HTML a ser colado em um site
+
+<iframe title="Pedra_Branca" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMDlkMzk3ODItOGVlMi00OTVhLWI3MjMtYmRmMDVmMWZlYjAwIiwidCI6IjcwZGM2ZWM0LTc0YjEtNGMyNy04MWY5LWQwMmVlMmU1NzM5NiJ9" frameborder="0" allowFullScreen="true"></iframe>
